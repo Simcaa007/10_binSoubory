@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace _01
 {
@@ -15,6 +16,37 @@ namespace _01
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (StreamReader sr = new StreamReader("..\\..\\cisla.txt"))
+            {
+
+                FileStream fs = new FileStream("..\\..\\cisla.dat", FileMode.Create, FileAccess.Write);
+                BinaryWriter bw = new BinaryWriter(fs);
+                while (!sr.EndOfStream)
+                {
+                    string s = sr.ReadLine();
+                    long cislo = long.Parse(s);
+                    bw.Write(cislo);
+                }
+                bw.Close();
+                fs.Close();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (FileStream fs = new FileStream("..\\..\\cisla.dat", FileMode.Open, FileAccess.Read))
+            using (BinaryReader br =  new BinaryReader(fs))
+            {
+                while (fs.Position < fs.Length)
+                {
+                    long cislo = br.ReadInt64();
+                    listBox1.Items.Add(cislo);
+                }
+            }
         }
     }
 }
