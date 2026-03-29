@@ -44,20 +44,38 @@ namespace _04
 
         private void button3_Click(object sender, EventArgs e)
         {
-            int k = 5;
-            int l = 67;
-            using (FileStream fs = new FileStream("..\\..\\cisla.dat", FileMode.Open, FileAccess.ReadWrite))
+            int k = int.Parse(textBox2.Text);
+            int l = int.Parse(textBox3.Text);
+            using (FileStream fs = new FileStream("..\\..\\cisla.dat", FileMode.Create, FileAccess.Write))
+            using (BinaryWriter bw = new BinaryWriter(fs))
+            {
+                foreach (string s in listBox1.Items)
+                {
+                    int c = int.Parse(s);
+                    if(c == k)
+                    {
+                        bw.Write(l);
+                    }
+                    else
+                    {
+                        bw.Write(c);
+                    }
+                }
+            }
+
+            using (FileStream fs = new FileStream("..\\..\\cisla.dat", FileMode.Open, FileAccess.Read))
             using (BinaryReader br = new BinaryReader(fs))
             {
                 while (fs.Position < fs.Length)
                 {
-                    int cislo = int.Parse(br.ReadString());
-                    if (cislo == k)
-                    {
-
-                    }
+                    listBox2.Items.Add(br.ReadInt32());
                 }
             }
+        }
+
+        private void k(object sender, EventArgs e)
+        {
+
         }
     }
 }
