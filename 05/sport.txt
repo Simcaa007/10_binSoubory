@@ -1,0 +1,4 @@
+1;Dominik;Sklenar;m;185;105
+2;Simona;Havelkova;z;156;52
+3;Lucie;Bobkova;z;163;49
+4;Petr;Havelka;m;170;86
